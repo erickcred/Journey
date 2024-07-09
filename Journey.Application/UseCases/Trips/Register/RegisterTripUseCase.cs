@@ -29,10 +29,20 @@ public class RegisterTripUseCase
       transaction.Commit();
       return EntityForResponse(response.Entity);
     }
-    catch (System.Exception ex)
+    catch (NotFoundException ex)
     {
       transaction.Rollback();
-      throw new System.Exception(ex.Message);
+      throw new NotFoundException(ex.Message);
+    }
+    catch (ErrorOnValidationException ex)
+    {
+      transaction.Rollback();
+      throw new ErrorOnValidationException(ex.Message);
+    }
+    catch 
+    {
+      transaction.Rollback();
+      throw new System.Exception();
     }
   }
 
