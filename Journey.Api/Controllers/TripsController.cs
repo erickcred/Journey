@@ -1,4 +1,5 @@
-﻿using Journey.Application.UseCases.Trips.GetAll;
+﻿using Journey.Application.UseCases.Trips.Get;
+using Journey.Application.UseCases.Trips.GetAll;
 using Journey.Application.UseCases.Trips.Register;
 using Journey.Communication.Requests;
 using Journey.Exception.ExceptionBase;
@@ -11,20 +12,29 @@ namespace Journey.Api.Controllers;
 public class TripsController : ControllerBase
 {
   private readonly RegisterTripUseCase _resgisterTripUseCase;
-  private readonly GetAllTripUseCase _GetAllTripUseCase;
+  private readonly GetAllTripUseCase _getAllTripUseCase;
+  private readonly GetTripByIdUseCase _getTripUseCase;
 
 
-  public TripsController(RegisterTripUseCase resgisterTripUseCase, GetAllTripUseCase getallTripUseCase)
+  public TripsController(RegisterTripUseCase resgisterTripUseCase, GetAllTripUseCase getallTripUseCase, GetTripByIdUseCase getTripUseCase)
   {
     _resgisterTripUseCase = resgisterTripUseCase;
-    _GetAllTripUseCase = getallTripUseCase;
+    _getAllTripUseCase = getallTripUseCase;
+    _getTripUseCase = getTripUseCase;
   }
 
   [HttpGet]
   public IActionResult GetAll()
   {
-    var trips = _GetAllTripUseCase.Execute();
+    var trips = _getAllTripUseCase.Execute();
     return Ok(trips);
+  }
+
+  [HttpGet("{id}")]
+  public IActionResult GetById([FromRoute] Guid id)
+  {
+    var trip = _getTripUseCase.Execute(id);
+    return Ok(trip);
   }
 
   [HttpPost]

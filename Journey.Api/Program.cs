@@ -1,3 +1,4 @@
+using Journey.Application.UseCases.Trips.Get;
 using Journey.Application.UseCases.Trips.GetAll;
 using Journey.Application.UseCases.Trips.Register;
 using Journey.Infrastructure;
@@ -14,6 +15,7 @@ builder.Services.AddDbContext<JourneyContext>(options =>
 
 builder.Services.AddScoped<RegisterTripUseCase>();
 builder.Services.AddScoped<GetAllTripUseCase>();
+builder.Services.AddScoped<GetTripByIdUseCase>();
 
 builder.Services.AddControllers();
 
