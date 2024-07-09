@@ -2,7 +2,5 @@
 
 public class JourneyException : SystemException
 {
-  public string Message { get; set; }
-
-  public JourneyException(string message) => Message = message;
+  public JourneyException(string message) : base(message) { }
 }
