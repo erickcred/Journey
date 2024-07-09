@@ -1,4 +1,6 @@
 ﻿using Journey.Communication.Responses;
+using Journey.Exception;
+using Journey.Exception.ExceptionBase;
 using Journey.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 
@@ -20,6 +22,9 @@ public class GetTripByIdUseCase
       .Include(a => a.Activities)
       .AsNoTracking()
       .FirstOrDefault(t => t.Id.Equals(tripId));
+
+    if (trip is null)
+      throw new JourneyException(ResourceErrorMessages.VIAGEM_NAO_ENCONTRADA);
 
     return new ResponseTripJson
     {
