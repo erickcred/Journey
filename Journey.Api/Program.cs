@@ -1,3 +1,4 @@
+using Journey.Api.Filters;
 using Journey.Application.UseCases.Trips.Get;
 using Journey.Application.UseCases.Trips.GetAll;
 using Journey.Application.UseCases.Trips.Register;
@@ -21,6 +22,9 @@ builder.Services.AddControllers();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+// Filtro de Exceção
+builder.Services.AddMvc(config => config.Filters.Add(typeof(ExceptionFilter)));
 
 var app = builder.Build();
 
