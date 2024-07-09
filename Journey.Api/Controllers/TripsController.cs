@@ -1,5 +1,7 @@
-﻿using Journey.Communication.Requests;
-using Journey.Communication.Responses;
+﻿using Journey.Application.UseCases.Trips.GetAll;
+using Journey.Application.UseCases.Trips.Register;
+using Journey.Communication.Requests;
+using Journey.Exception.ExceptionBase;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Journey.Api.Controllers;
@@ -8,24 +10,39 @@ namespace Journey.Api.Controllers;
 [ApiController]
 public class TripsController : ControllerBase
 {
+  private readonly RegisterTripUseCase _resgisterTripUseCase;
+  private readonly GetAllTripUseCase _GetAllTripUseCase;
+
+
+  public TripsController(RegisterTripUseCase resgisterTripUseCase, GetAllTripUseCase getallTripUseCase)
+  {
+    _resgisterTripUseCase = resgisterTripUseCase;
+    _GetAllTripUseCase = getallTripUseCase;
+  }
+
+  [HttpGet]
+  public IActionResult GetAll()
+  {
+    var trips = _GetAllTripUseCase.Execute();
+    return Ok(trips);
+  }
+
   [HttpPost]
   public IActionResult Register([FromBody] RequestRegisterTripJson request)
   {
-    var responseTrip = ForResponseTripJson(request);
-    return Created(string.Empty, request);
-  }
-
-  #region Convetions ForResponses
-  private ResponseTripJson ForResponseTripJson(RequestRegisterTripJson request)
-  {
-    var response = new ResponseTripJson
+    try
     {
-      Id = Guid.NewGuid(),
-      Name = request.Name,
-      StartDate = request.StartDate,
-      EndDate = request.EndDate,
-    };
-    return response;
+      var response = _resgisterTripUseCase.Execute(request);
+
+      return Created(string.Empty, response);
+    }
+    catch (JourneyException ex)
+    {
+      return BadRequest(ex.Message);
+    }
+    catch
+    {
+      return StatusCode(StatusCodes.Status500InternalServerError, "Erro desconhecido!");  
+    }
   }
-  #endregion
 }

@@ -1,3 +1,5 @@
+using Journey.Application.UseCases.Trips.GetAll;
+using Journey.Application.UseCases.Trips.Register;
 using Journey.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,6 +11,9 @@ builder.Services.AddDbContext<JourneyContext>(options =>
 {
   options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
+
+builder.Services.AddScoped<RegisterTripUseCase>();
+builder.Services.AddScoped<GetAllTripUseCase>();
 
 builder.Services.AddControllers();
 
