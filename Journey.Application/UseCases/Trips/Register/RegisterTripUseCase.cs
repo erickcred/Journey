@@ -29,23 +29,23 @@ public class RegisterTripUseCase
       transaction.Commit();
       return EntityForResponse(response.Entity);
     }
-    catch (JourneyException ex)
+    catch (System.Exception ex)
     {
       transaction.Rollback();
-      throw new JourneyException(ex.Message);
+      throw new System.Exception(ex.Message);
     }
   }
 
   private void Validate(RequestRegisterTripJson request)
   {
     if (string.IsNullOrWhiteSpace(request.Name))
-      throw new JourneyException(ResourceErrorMessages.NOME_VAZIO);
+      throw new ErrorOnValidationException(ResourceErrorMessages.NOME_VAZIO);
 
     if (request.StartDate.Date < DateTime.UtcNow.Date)
-      throw new JourneyException(ResourceErrorMessages.DATA_MENOR_QUE_ATUAL);
+      throw new ErrorOnValidationException(ResourceErrorMessages.DATA_MENOR_QUE_ATUAL);
 
     if (request.EndDate.Date < request.StartDate.Date)
-      throw new JourneyException(ResourceErrorMessages.DATA_FIM_MENOR_QUE_INICIO);
+      throw new ErrorOnValidationException(ResourceErrorMessages.DATA_FIM_MENOR_QUE_INICIO);
   }
 
 

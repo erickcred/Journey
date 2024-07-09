@@ -24,7 +24,7 @@ public class GetTripByIdUseCase
       .FirstOrDefault(t => t.Id.Equals(tripId));
 
     if (trip is null)
-      throw new JourneyException(ResourceErrorMessages.VIAGEM_NAO_ENCONTRADA);
+      throw new NotFoundException(ResourceErrorMessages.VIAGEM_NAO_ENCONTRADA);
 
     return new ResponseTripJson
     {
