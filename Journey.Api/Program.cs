@@ -1,4 +1,7 @@
 using Journey.Api.Filters;
+using Journey.Application.UseCases.Activities.Complete;
+using Journey.Application.UseCases.Activities.Delete;
+using Journey.Application.UseCases.Activities.Register;
 using Journey.Application.UseCases.Trips.Delete;
 using Journey.Application.UseCases.Trips.Get;
 using Journey.Application.UseCases.Trips.GetAll;
@@ -19,6 +22,9 @@ builder.Services.AddScoped<RegisterTripUseCase>();
 builder.Services.AddScoped<GetAllTripUseCase>();
 builder.Services.AddScoped<GetTripByIdUseCase>();
 builder.Services.AddScoped<DeleteTripUseCase>();
+builder.Services.AddScoped<RegisterActivityForTripUseCase>();
+builder.Services.AddScoped<CompleteActivityForTripUseCase>();
+builder.Services.AddScoped<DeleteActivityForTripUseCase>();
 
 builder.Services.AddControllers();
 
