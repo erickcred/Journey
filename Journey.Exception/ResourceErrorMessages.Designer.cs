@@ -61,6 +61,15 @@ namespace Journey.Exception {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Atividade não encotrada!.
+        /// </summary>
+        public static string ATIVIDADE_NAO_ENCONTRADA {
+            get {
+                return ResourceManager.GetString("ATIVIDADE_NAO_ENCONTRADA", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to A Data fim da viagem deve ser igual ou superior a data de inicio da viagem!.
         /// </summary>
         public static string DATA_FIM_MENOR_QUE_INICIO {
@@ -75,6 +84,15 @@ namespace Journey.Exception {
         public static string DATA_MENOR_QUE_ATUAL {
             get {
                 return ResourceManager.GetString("DATA_MENOR_QUE_ATUAL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A Data selecionada para atividade não está dentro do periodo da viagem!.
+        /// </summary>
+        public static string DATA_VISITA_INVALIDA {
+            get {
+                return ResourceManager.GetString("DATA_VISITA_INVALIDA", resourceCulture);
             }
         }
         

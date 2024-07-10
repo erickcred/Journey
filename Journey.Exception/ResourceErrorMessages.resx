@@ -117,11 +117,17 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ATIVIDADE_NAO_ENCONTRADA" xml:space="preserve">
+    <value>Atividade não encotrada!</value>
+  </data>
   <data name="DATA_FIM_MENOR_QUE_INICIO" xml:space="preserve">
     <value>A Data fim da viagem deve ser igual ou superior a data de inicio da viagem!</value>
   </data>
   <data name="DATA_MENOR_QUE_ATUAL" xml:space="preserve">
     <value>A Data de inicio da viagem deve ser igual ou superior a data atual!</value>
+  </data>
+  <data name="DATA_VISITA_INVALIDA" xml:space="preserve">
+    <value>A Data selecionada para atividade não está dentro do periodo da viagem!</value>
   </data>
   <data name="NOME_VAZIO" xml:space="preserve">
     <value>Nome não pode ser vazio!</value>

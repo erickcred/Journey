@@ -11,12 +11,6 @@ public class JourneyContext : DbContext
   public JourneyContext(DbContextOptions<JourneyContext> options) : base(options) { }
 
   public DbSet<Trip> Trips { get; set; }
-
-  protected override void OnModelCreating(ModelBuilder modelBuilder)
-  {
-    base.OnModelCreating(modelBuilder);
-
-    modelBuilder.Entity<Activity>().ToTable("Activities");
-  }
+  public DbSet<Activity> Activities { get; set; }
 
 }
