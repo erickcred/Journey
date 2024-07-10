@@ -1,4 +1,5 @@
-﻿using Journey.Application.UseCases.Trips.Get;
+﻿using Journey.Application.UseCases.Trips.Delete;
+using Journey.Application.UseCases.Trips.Get;
 using Journey.Application.UseCases.Trips.GetAll;
 using Journey.Application.UseCases.Trips.Register;
 using Journey.Communication.Requests;
@@ -14,13 +15,15 @@ public class TripsController : ControllerBase
   private readonly RegisterTripUseCase _resgisterTripUseCase;
   private readonly GetAllTripUseCase _getAllTripUseCase;
   private readonly GetTripByIdUseCase _getTripUseCase;
+  private readonly DeleteTripUseCase _deleteTripUseCase;
 
 
-  public TripsController(RegisterTripUseCase resgisterTripUseCase, GetAllTripUseCase getallTripUseCase, GetTripByIdUseCase getTripUseCase)
+  public TripsController(RegisterTripUseCase resgisterTripUseCase, GetAllTripUseCase getallTripUseCase, GetTripByIdUseCase getTripUseCase, DeleteTripUseCase deleteTripUseCase)
   {
     _resgisterTripUseCase = resgisterTripUseCase;
     _getAllTripUseCase = getallTripUseCase;
     _getTripUseCase = getTripUseCase;
+    _deleteTripUseCase = deleteTripUseCase;
   }
 
   [HttpGet]
@@ -49,5 +52,15 @@ public class TripsController : ControllerBase
   {
     var response = _resgisterTripUseCase.Execute(request);
     return Created(string.Empty, response);
+  }
+
+  [HttpDelete("{id}")]
+  [ProducesResponseType(typeof(ResponseTripJson), StatusCodes.Status200OK)]
+  [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
+  [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
+  public IActionResult Delete([FromRoute] Guid id)
+  {
+    var response = _deleteTripUseCase.Excecute(id);
+    return Ok(response);
   }
 }
