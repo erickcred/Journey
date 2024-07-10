@@ -118,10 +118,10 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="DATA_FIM_MENOR_QUE_INICIO" xml:space="preserve">
-    <value>A viagem deve terminar após a data de inicio!</value>
+    <value>A Data fim da viagem deve ser igual ou superior a data de inicio da viagem!</value>
   </data>
   <data name="DATA_MENOR_QUE_ATUAL" xml:space="preserve">
-    <value>A viagem não pode ser registrada para uma data passada!</value>
+    <value>A Data de inicio da viagem deve ser igual ou superior a data atual!</value>
   </data>
   <data name="NOME_VAZIO" xml:space="preserve">
     <value>Nome não pode ser vazio!</value>

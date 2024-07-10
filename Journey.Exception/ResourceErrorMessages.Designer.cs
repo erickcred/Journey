@@ -61,7 +61,7 @@ namespace Journey.Exception {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to A viagem deve terminar após a data de inicio!.
+        ///   Looks up a localized string similar to A Data fim da viagem deve ser igual ou superior a data de inicio da viagem!.
         /// </summary>
         public static string DATA_FIM_MENOR_QUE_INICIO {
             get {
@@ -70,7 +70,7 @@ namespace Journey.Exception {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to A viagem não pode ser registrada para uma data passada!.
+        ///   Looks up a localized string similar to A Data de inicio da viagem deve ser igual ou superior a data atual!.
         /// </summary>
         public static string DATA_MENOR_QUE_ATUAL {
             get {

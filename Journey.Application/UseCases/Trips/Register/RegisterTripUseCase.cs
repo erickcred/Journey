@@ -1,6 +1,5 @@
 ﻿using Journey.Communication.Requests;
 using Journey.Communication.Responses;
-using Journey.Exception;
 using Journey.Exception.ExceptionBase;
 using Journey.Infrastructure;
 using Journey.Infrastructure.Entities;
@@ -10,7 +9,7 @@ namespace Journey.Application.UseCases.Trips.Register;
 public class RegisterTripUseCase
 {
   private readonly JourneyContext _journeyContext;
-  
+
   public RegisterTripUseCase(JourneyContext journeyContext)
   {
     _journeyContext = journeyContext;
@@ -18,44 +17,24 @@ public class RegisterTripUseCase
 
   public ResponseShortTripJson Execute(RequestRegisterTripJson request)
   {
-    using var transaction = _journeyContext.Database.BeginTransaction();
-    try
-    { 
-      Validate(request);
-      var result = RequestForEntity(request);
-      var response = _journeyContext.Trips.Add(result);
-      _journeyContext.SaveChanges();
+    Validate(request);
+    var result = RequestForEntity(request);
+    var response = _journeyContext.Trips.Add(result);
+    _journeyContext.SaveChanges();
 
-      transaction.Commit();
-      return EntityForResponse(response.Entity);
-    }
-    catch (NotFoundException ex)
-    {
-      transaction.Rollback();
-      throw new NotFoundException(ex.Message);
-    }
-    catch (ErrorOnValidationException ex)
-    {
-      transaction.Rollback();
-      throw new ErrorOnValidationException(ex.Message);
-    }
-    catch 
-    {
-      transaction.Rollback();
-      throw new System.Exception();
-    }
+    return EntityForResponse(response.Entity);
   }
 
   private void Validate(RequestRegisterTripJson request)
   {
-    if (string.IsNullOrWhiteSpace(request.Name))
-      throw new ErrorOnValidationException(ResourceErrorMessages.NOME_VAZIO);
 
-    if (request.StartDate.Date < DateTime.UtcNow.Date)
-      throw new ErrorOnValidationException(ResourceErrorMessages.DATA_MENOR_QUE_ATUAL);
-
-    if (request.EndDate.Date < request.StartDate.Date)
-      throw new ErrorOnValidationException(ResourceErrorMessages.DATA_FIM_MENOR_QUE_INICIO);
+    var validator = new RegisterTripValidator();
+    var result = validator.Validate(request);
+    if (result.IsValid == false)
+    {
+      var errorMessages = result.Errors.Select(error => error.ErrorMessage).ToList();
+      throw new ErrorOnValidationException(errorMessages);
+    }
   }
 
 
